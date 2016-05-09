@@ -65,9 +65,20 @@ class WCS_Renewal_Logger {
 	 * @param string $message Message to log
 	 */
 	protected function log( $message ) {
-		$log_message = sprintf( 'PID %d: Renewal %d. %s', $this->process_id, $this->counter, $message );
+		$log_message = sprintf( 'PID %d: Renewal %d. %s (MEMORY USAGE: %s)', $this->process_id, $this->counter, $message, $this->get_memory_usage() );
 		$this->logger->add( 'wcs-renewal', $log_message );
 		error_log( $log_message );
+	}
+
+	/**
+	 * Return a string display of the memory usage.
+	 */
+	protected function get_memory_usage() {
+
+		$size = memory_get_usage();
+		$unit = array( 'b', 'kb', 'mb', 'gb', 'tb', 'pb' );
+
+		return @round( $size / pow( 1024,( $i = floor( log( $size, 1024 ) ) ) ), 2 ) . ' ' . $unit[ $i ];
 	}
 
 	/**
@@ -76,6 +87,5 @@ class WCS_Renewal_Logger {
 	public function load_logger() {
 		$this->logger = new WC_Logger();
 	}
-
 }
 new WCS_Renewal_Logger();
