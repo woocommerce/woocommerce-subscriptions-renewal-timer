@@ -42,6 +42,9 @@ class WCS_Renewal_Logger {
 		add_action( 'woocommerce_scheduled_subscription_payment', array( $this, 'log_renewal_order_created' ), 2 );
 
 		add_action( 'woocommerce_scheduled_subscription_payment', array( $this, 'log_renewal_payment_processed' ), 11 );
+
+		// Offer a generic hook for anything to log a message (by calling do_action( 'woocommerce_renewal_log', $message ); )
+		add_action( 'woocommerce_renewal_log', array( $this, 'log' ), 10, 1 );
 	}
 
 	public function log_renewal_start( $subscription_id ) {
@@ -64,7 +67,7 @@ class WCS_Renewal_Logger {
 	 *
 	 * @param string $message Message to log
 	 */
-	protected function log( $message ) {
+	public function log( $message ) {
 		$log_message = sprintf( 'PID %d: Renewal %d. %s (MEMORY USAGE: %s)', $this->process_id, $this->counter, $message, $this->get_memory_usage() );
 		$this->logger->add( 'wcs-renewal', $log_message );
 		error_log( $log_message );
