@@ -1,13 +1,13 @@
 <?php
 /**
- * Plugin Name: WooCommerce Subscriptions Renewal Logger
- * Plugin URI:
+ * Plugin Name: WooCommerce Subscriptions Renewal Timer
+ * Plugin URI: https://github.com/prospress/woocommerce-subscriptions-renewal-timer
  * Description: Log the beginning and end of subscription renewal events to keep an eye on how long they are taking.
  * Author: Prospress Inc.
  * Author URI: http://prospress.com/
  * Version: 1.0
  *
- * Copyright 2016 Prospress, Inc.  (email : freedoms@prospress.com)
+ * Copyright 2017 Prospress, Inc.  (email : freedoms@prospress.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class WCS_Renewal_Logger {
+class WCS_Renewal_Timer {
 
 	private $logger;
 
@@ -91,4 +91,4 @@ class WCS_Renewal_Logger {
 		$this->logger = new WC_Logger();
 	}
 }
-new WCS_Renewal_Logger();
+new WCS_Renewal_Timer();
