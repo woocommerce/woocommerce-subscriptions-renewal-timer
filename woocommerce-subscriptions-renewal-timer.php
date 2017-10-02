@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WooCommerce Subscriptions Renewal Timer
  * Plugin URI: https://github.com/prospress/woocommerce-subscriptions-renewal-timer
- * Description: Log the beginning and end of subscription renewal events to keep an eye on how long they are taking.
+ * Description: Log the beginning and end of subscription renewal events. To view the log file: Go to WooCommerce > System Status > Logs and select the log file with the `'wcs-renewal'` prefix.
  * Author: Prospress Inc.
  * Author URI: http://prospress.com/
  * Version: 1.0
