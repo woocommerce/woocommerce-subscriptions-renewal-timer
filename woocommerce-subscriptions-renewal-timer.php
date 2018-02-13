@@ -31,6 +31,8 @@ class WCS_Renewal_Timer {
 
 	private $counter = 1;
 
+	protected $start_time = 0;
+
 	public function __construct() {
 
 		$this->process_id = getmypid();
@@ -48,6 +50,7 @@ class WCS_Renewal_Timer {
 	}
 
 	public function log_renewal_start( $subscription_id ) {
+		$this->start_timer();
 		$this->log( sprintf( 'Subscription %d renewal begins.', $subscription_id ) );
 	}
 
@@ -68,7 +71,7 @@ class WCS_Renewal_Timer {
 	 * @param string $message Message to log
 	 */
 	public function log( $message ) {
-		$log_message = sprintf( 'PID %d: Renewal %d. %s (MEMORY USAGE: %s)', $this->process_id, $this->counter, $message, $this->get_memory_usage() );
+		$log_message = sprintf( 'PID %d: Renewal %d. %s (MEMORY USAGE: %s. TIME ELAPSED: %d seconds)', $this->process_id, $this->counter, $message, $this->get_memory_usage(), $this->get_seconds_elapsed() );
 		$this->logger->add( 'wcs-renewal', $log_message );
 		error_log( $log_message );
 	}
@@ -82,6 +85,20 @@ class WCS_Renewal_Timer {
 		$unit = array( 'b', 'kb', 'mb', 'gb', 'tb', 'pb' );
 
 		return @round( $size / pow( 1024,( $i = floor( log( $size, 1024 ) ) ) ), 2 ) . ' ' . $unit[ $i ];
+	}
+
+	/**
+	 * Return a string display of the memory usage.
+	 */
+	protected function start_timer() {
+		$this->start_time = microtime( true );
+	}
+
+	/**
+	 * Return a string display of the memory usage.
+	 */
+	protected function get_seconds_elapsed() {
+		return microtime( true ) - $this->start_time;
 	}
 
 	/**
