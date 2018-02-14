@@ -39,6 +39,8 @@ class WCS_Renewal_Timer {
 
 		add_action( 'woocommerce_loaded', array( $this, 'load_logger' ) );
 
+		add_action( 'woocommerce_scheduled_subscription_payment', array( $this, 'start_timer_on_first_renewal' ), -100 );
+
 		add_action( 'woocommerce_scheduled_subscription_payment', array( $this, 'log_renewal_start' ), 0 );
 
 		add_action( 'woocommerce_scheduled_subscription_payment', array( $this, 'log_renewal_order_created' ), 2 );
@@ -49,8 +51,13 @@ class WCS_Renewal_Timer {
 		add_action( 'woocommerce_renewal_log', array( $this, 'log' ), 10, 1 );
 	}
 
+	public function start_timer_on_first_renewal() {
+		if ( 0 === $this->start_time ) {
+			$this->start_timer();
+		}
+	}
+
 	public function log_renewal_start( $subscription_id ) {
-		$this->start_timer();
 		$this->log( sprintf( 'Subscription %d renewal begins.', $subscription_id ) );
 	}
 
