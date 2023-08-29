@@ -1,3 +1,5 @@
+> IMPORTANT: This code is made available in the hope that it will be useful, but without any warranty. See the GNU General Public License for more details. Automattic or WooCommerce support services are also not available to assist with the use of this code.
+
 # WooCommerce Subscriptions Renewal Timer
 
 Log the beginning and end of subscription renewal events. Helps track how long the renewal process is taking.
